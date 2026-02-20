@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>갈락시아스 — 마음이 튼튼해지는 그림책</title>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF6EF;
+    --beige: #F0E8D8;
+    --sand: #D9C9A8;
+    --warm-brown: #8C6E4B;
+    --deep-brown: #4A3520;
+    --soft-green: #7A9E7E;
+    --dusty-rose: #C9897A;
+    --text-main: #3A2E22;
+    --text-light: #7A6A55;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--text-main);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 4rem;
+    background: rgba(250,246,239,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .logo {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--deep-brown);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .logo span {
+    display: block;
+    font-size: 0.55rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    color: var(--text-light);
+    margin-top: 2px;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  nav ul a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--deep-brown); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 60%, rgba(209,196,168,0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 30%, rgba(201,137,122,0.12) 0%, transparent 60%);
+  }
+
+  /* Decorative circles */
+  .deco-circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+  }
+  .deco-circle-1 {
+    width: 420px; height: 420px;
+    background: var(--sand);
+    right: -80px; top: 50%;
+    transform: translateY(-50%);
+  }
+  .deco-circle-2 {
+    width: 180px; height: 180px;
+    background: var(--dusty-rose);
+    right: 220px; top: 15%;
+    opacity: 0.1;
+  }
+
+  .hero-content {
+    position: relative;
+    max-width: 650px;
+    animation: fadeUp 1s ease both;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    color: var(--warm-brown);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--deep-brown);
+    margin-bottom: 1.8rem;
+    word-break: keep-all;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--dusty-rose);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--text-light);
+    max-width: 480px;
+    word-break: keep-all;
+    margin-bottom: 2.5rem;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.85rem 2.2rem;
+    background: var(--deep-brown);
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--warm-brown);
+    transform: translateY(-2px);
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    padding: 7rem 4rem;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--warm-brown);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700;
+    color: var(--deep-brown);
+    margin-bottom: 2rem;
+    line-height: 1.3;
+    word-break: keep-all;
+  }
+
+  /* ─── MISSION ─── */
+  #mission {
+    background: var(--beige);
+    border-top: 1px solid var(--sand);
+  }
+
+  #authors {
+    background: var(--cream);
+    border-top: 1px solid var(--sand);
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .mission-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .mission-text {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+    line-height: 2;
+    color: var(--text-main);
+    word-break: keep-all;
+  }
+
+  .mission-divider {
+    width: 48px;
+    height: 2px;
+    background: var(--sand);
+    margin: 2.5rem auto;
+  }
+
+  .mission-detail {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    line-height: 2;
+    word-break: keep-all;
+  }
+
+  /* ─── BOOKS ─── */
+  #books { background: var(--cream); }
+
+  .books-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .book-card {
+    background: var(--beige);
+    border: 1px solid var(--sand);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+
+  .book-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(74,53,32,0.1);
+  }
+
+  .book-cover {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, var(--sand) 0%, var(--beige) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .book-cover-inner {
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .book-cover-title {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--deep-brown);
+    line-height: 1.4;
+    word-break: keep-all;
+    margin-bottom: 0.5rem;
+  }
+
+  .book-cover-author {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.1em;
+  }
+
+  /* Decorative shapes on book covers */
+  .book-cover::before {
+    content: '';
+    position: absolute;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    top: -20px; right: -20px;
+  }
+  .book-cover::after {
+    content: '';
+    position: absolute;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: rgba(201,137,122,0.15);
+    bottom: 20px; left: 10px;
+  }
+
+  .book-info {
+    padding: 1.4rem 1.5rem 1.6rem;
+  }
+
+  .book-year {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--warm-brown);
+    margin-bottom: 0.5rem;
+  }
+
+  .book-name {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--deep-brown);
+    margin-bottom: 0.3rem;
+  }
+
+  .book-author {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+  }
+
+  .btn-shop {
+    display: inline-block;
+    margin-top: 1.1rem;
+    padding: 0.55rem 1.1rem;
+    border: 1px solid var(--warm-brown);
+    color: var(--warm-brown);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    border-radius: 2px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-shop:hover {
+    background: var(--warm-brown);
+    color: var(--cream);
+  }
+
+  .book-desc {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    line-height: 1.9;
+    word-break: keep-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ─── AUTHORS ─── */
+  #authors {
+    background: var(--beige);
+    border-top: 1px solid var(--sand);
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .authors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .author-card {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: var(--cream);
+    border: 1px solid var(--sand);
+    border-radius: 4px;
+  }
+
+  .author-avatar {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--sand), var(--dusty-rose));
+    margin: 0 auto 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 1.6rem;
+    color: var(--cream);
+    font-weight: 700;
+    opacity: 0.85;
+  }
+
+  .author-name {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--deep-brown);
+    margin-bottom: 0.3rem;
+  }
+
+  .author-book {
+    font-size: 0.75rem;
+    color: var(--warm-brown);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.8rem;
+  }
+
+  .author-bio {
+    font-size: 0.83rem;
+    color: var(--text-light);
+    line-height: 1.8;
+    word-break: keep-all;
+  }
+
+  /* ─── BLOG ─── */
+  #blog { background: var(--cream); }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .blog-card {
+    border-bottom: 2px solid var(--sand);
+    padding-bottom: 1.8rem;
+    transition: border-color 0.2s;
+  }
+
+  .blog-card:hover { border-color: var(--warm-brown); }
+
+  .blog-date {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--warm-brown);
+    margin-bottom: 0.7rem;
+  }
+
+  .blog-title {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--deep-brown);
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+    word-break: keep-all;
+  }
+
+  .blog-excerpt {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    line-height: 1.9;
+    word-break: keep-all;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--deep-brown);
+    color: rgba(250,246,239,0.6);
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    line-height: 2;
+  }
+
+  footer .footer-logo {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 1.2rem;
+    color: var(--cream);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── ADMIN PANEL ─── */
+  #admin-toggle {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    background: var(--deep-brown);
+    color: var(--cream);
+    border: none;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border-radius: 2px;
+    z-index: 200;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: background 0.2s;
+  }
+  #admin-toggle:hover { background: var(--warm-brown); }
+
+  #admin-panel {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(74,53,32,0.5);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+  }
+  #admin-panel.open { display: flex; }
+
+  .admin-box {
+    background: var(--cream);
+    border: 1px solid var(--sand);
+    border-radius: 6px;
+    padding: 2.5rem;
+    width: min(520px, 92vw);
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+
+  .admin-box h2 {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 1.4rem;
+    color: var(--deep-brown);
+    margin-bottom: 0.4rem;
+  }
+
+  .admin-box p.admin-hint {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 1.8rem;
+    line-height: 1.7;
+    word-break: keep-all;
+  }
+
+  .admin-field {
+    margin-bottom: 1.2rem;
+  }
+
+  .admin-field label {
+    display: block;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: var(--warm-brown);
+    margin-bottom: 0.4rem;
+  }
+
+  .admin-field input,
+  .admin-field textarea {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--sand);
+    background: var(--beige);
+    border-radius: 3px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .admin-field input:focus,
+  .admin-field textarea:focus { border-color: var(--warm-brown); }
+
+  .admin-field textarea { height: 110px; resize: vertical; }
+
+  .admin-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .btn-add {
+    flex: 1;
+    padding: 0.75rem;
+    background: var(--deep-brown);
+    color: var(--cream);
+    border: none;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    border-radius: 2px;
+    transition: background 0.2s;
+  }
+  .btn-add:hover { background: var(--warm-brown); }
+
+  .btn-cancel {
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    color: var(--text-light);
+    border: 1px solid var(--sand);
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.85rem;
+    border-radius: 2px;
+    transition: border-color 0.2s;
+  }
+  .btn-cancel:hover { border-color: var(--text-light); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    nav ul { gap: 1.2rem; }
+    section { padding: 5rem 1.5rem; }
+    #hero { padding: 7rem 1.5rem 4rem; }
+    .books-header { flex-direction: column; align-items: flex-start; }
+    .deco-circle-1 { width: 260px; height: 260px; right: -60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="logo">
+    갈락시아스
+    <span>GALAXIAS BOOKS</span>
+  </a>
+  <ul>
+    <li><a href="#books">책소개</a></li>
+    <li><a href="#authors">저자소개</a></li>
+    <li><a href="#blog">블로그</a></li>
+    <li><a href="#mission">미션</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="deco-circle deco-circle-1"></div>
+  <div class="deco-circle deco-circle-2"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">그림책 출판사</p>
+    <h1 class="hero-title">아이의 마음이<br><em>튼튼해지는</em><br>이야기들</h1>
+    <p class="hero-sub">아이들의 자존감을 키워주는 그림책과 육아서, 그리고 함께 고민하는 출판사입니다.</p>
+    <a href="#books" class="btn-primary">책 살펴보기</a>
+  </div>
+</section>
+
+<!-- BOOKS -->
+<section id="books">
+  <div class="books-header">
+    <div>
+      <p class="section-label">출간 도서</p>
+      <h2 class="section-title">갈락시아스의 책들</h2>
+    </div>
+  </div>
+  <div class="books-grid" id="books-grid">
+  </div>
+</section>
+
+<!-- AUTHORS -->
+<section id="authors">
+  <p class="section-label">함께한 사람들</p>
+  <h2 class="section-title">저자 소개</h2>
+  <div class="authors-grid" id="authors-grid">
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <p class="section-label">대표 에세이</p>
+  <h2 class="section-title">블로그</h2>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <p class="blog-date">2024. 03. 15</p>
+      <h3 class="blog-title">왜 그림책인가 — 작은 책이 아이의 세계를 바꾸는 방법</h3>
+      <p class="blog-excerpt">처음 출판사를 시작했을 때, 주변에서 많이 물었습니다. "왜 하필 그림책이에요?" 그때마다 저는 잠시 말을 고르곤 했습니다. 사실 그림책은 작은 책이 아닙니다...</p>
+    </div>
+    <div class="blog-card">
+      <p class="blog-date">2024. 01. 08</p>
+      <h3 class="blog-title">불안한 아이, 불안한 부모 — 같이 읽으면 달라지는 것들</h3>
+      <p class="blog-excerpt">육아 상담 현장에서 가장 많이 받는 질문 중 하나가 "우리 아이가 너무 걱정이 많아요"입니다. 아이의 불안은 부모의 불안과 닿아있는 경우가 많더라고요...</p>
+    </div>
+    <div class="blog-card">
+      <p class="blog-date">2023. 11. 20</p>
+      <h3 class="blog-title">번역이라는 일 — 원작자의 마음을 우리말로 옮긴다는 것</h3>
+      <p class="blog-excerpt">갈락시아스의 책들은 모두 해외 원작을 우리말로 옮긴 것들입니다. 번역은 단순히 단어를 바꾸는 일이 아니라, 저자가 아이에게 전하고 싶었던 온도를 그대로 담는 일입니다...</p>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section id="mission">
+  <div class="mission-inner">
+    <p class="section-label">우리의 이야기</p>
+    <h2 class="section-title">갈락시아스가 걸어가는 길</h2>
+    <p class="mission-text">
+      출판사 갈락시아스는 아이들의 자존감을 키워주는<br>
+      어린이책과 육아서를 우리말로 옮기고 국내에 소개하는 일을 합니다.
+    </p>
+    <div class="mission-divider"></div>
+    <p class="mission-detail">
+      아이들의 마음이 튼튼해지고,<br>
+      아이를 처음 키우는 부모들의 어려움을 함께 고민합니다.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">갈락시아스</span>
+  출판사 갈락시아스 · 아이들의 마음이 튼튼해지는 그림책<br>
+  © 2024 Galaxias Books. All rights reserved.
+</footer>
+
+<!-- ADMIN TOGGLE -->
+<button id="admin-toggle" onclick="toggleAdmin()">+ 책 추가</button>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+  <div class="admin-box">
+    <h2>새 책 추가하기</h2>
+    <p class="admin-hint">
+      아래 정보를 입력하고 '추가하기'를 누르면 책소개 섹션에 바로 표시됩니다.<br>
+      코딩 없이 간편하게 책을 추가하세요.
+    </p>
+    <div class="admin-field">
+      <label>책 제목 *</label>
+      <input type="text" id="new-title" placeholder="예: 난 할 수 있어">
+    </div>
+    <div class="admin-field">
+      <label>저자 *</label>
+      <input type="text" id="new-author" placeholder="예: 로리 라이트">
+    </div>
+    <div class="admin-field">
+      <label>그림 작가 (없으면 비워두세요)</label>
+      <input type="text" id="new-illustrator" placeholder="예: 아이샤 엘. 루비오">
+    </div>
+    <div class="admin-field">
+      <label>출간연도 *</label>
+      <input type="text" id="new-year" placeholder="예: 2024">
+    </div>
+    <div class="admin-field">
+      <label>소개 글 *</label>
+      <textarea id="new-desc" placeholder="책을 소개하는 글을 자유롭게 써주세요."></textarea>
+    </div>
+    <div class="admin-field">
+      <label>쇼핑몰 링크 (없으면 비워두세요)</label>
+      <input type="text" id="new-shopUrl" placeholder="예: https://product.kyobobook.co.kr/...">
+    </div>
+    <div class="admin-actions">
+      <button class="btn-add" onclick="addBook()">추가하기</button>
+      <button class="btn-cancel" onclick="toggleAdmin()">취소</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+//  📚 여기에 책 정보를 추가하세요!
+//  새 책이 출간되면 아래 배열에 항목을 추가하기만 하면 됩니다.
+// ══════════════════════════════════════════
+const BOOKS = [
+  {
+    title: "난 할 수 있어",
+    author: "로리 라이트",
+    illustrator: "",
+    year: "2018",
+    desc: "이 책은 세바스찬이 엉뚱하고 발랄하게 자신의 감정을 다스리는 모습을 보여줍니다. 귀여운 세바스찬과 절친한 친구인 고슴도치를 귀엽게 그려낸 그림은 아이들에게 흥미를 불러일으킵니다. 또한 쉽고 단순하게 반복되는 질문과 해결책을 통해 우리 아이들은 자신과 대화하는 방법을 배울 수 있습니다. 아이에게 읽어주고, 아이의 생각을 묻고, 아이의 답을 듣고, 엄마와 아이가 함께 대화하며 읽을 수 있는 마음이 튼튼해지는 그림책입니다.",
+    shopUrl: "https://product.kyobobook.co.kr/detail/S000001975466"
+  },
+  {
+    title: "걱정괴물이 뭐래?",
+    author: "앨리슨 에드워즈",
+    illustrator: "아이샤 엘. 루비오",
+    year: "2019",
+    desc: "많은 아이들이 걱정과 불안에 힘들어합니다. 어린 시절의 걱정과 불안은 계속 아이들을 따라다니고 아이들은 자신의 걱정이 현실로 나타날까 봐 두려워합니다. 이 책을 읽고 나면, 아이들은 불안이 찾아올 때마다 자신의 생각을 뒤집는 방법을 찾아내고 무슨 일이든 할 수 있다는 강력한 믿음도 함께 갖게 될 것입니다.",
+    shopUrl: "https://product.kyobobook.co.kr/detail/S000001975472"
+  },
+  {
+    title: "우리 아이는 왜 불안할까?",
+    author: "앨리슨 에드워즈",
+    illustrator: "",
+    year: "2021",
+    desc: "우리 아이는 왜 불안할까는 '똑똑한 아이들의 생각법', '문제 해결 방법'을 수록하고 있는 책입니다. 아이의 불안을 이해하고 함께 극복해나가고 싶은 부모들을 위한 든든한 안내서입니다.",
+    shopUrl: "https://product.kyobobook.co.kr/detail/S000001983782"
+  }
+];
+
+// ══════════════════════════════════════════
+//  저자 정보 (책 정보에서 자동 생성됩니다)
+// ══════════════════════════════════════════
+const AUTHORS = [
+  {
+    name: "로리 라이트",
+    book: "난 할 수 있어",
+    bio: "아이들의 감정과 자존감을 주제로 따뜻한 이야기를 써온 작가입니다. 세바스찬 시리즈로 많은 사랑을 받고 있습니다."
+  },
+  {
+    name: "앨리슨 에드워즈",
+    book: "걱정괴물이 뭐래?, 우리 아이는 왜 불안할까?",
+    bio: "아동 심리와 불안을 전문으로 연구하며, 아이들이 스스로 감정을 다스리는 방법을 그림책과 육아서로 전달합니다."
+  },
+  {
+    name: "아이샤 엘. 루비오",
+    book: "걱정괴물이 뭐래? (그림)",
+    bio: "생동감 넘치는 색채와 따뜻한 선으로 아이들의 마음을 화면 위에 펼쳐내는 일러스트레이터입니다."
+  }
+];
+
+// ─── 렌더링 ───
+function getInitial(name) {
+  return name.charAt(0);
+}
+
+function renderBooks() {
+  const grid = document.getElementById('books-grid');
+  grid.innerHTML = BOOKS.map(book => `
+    <div class="book-card">
+      <div class="book-cover">
+        <div class="book-cover-inner">
+          <div class="book-cover-title">${book.title}</div>
+          <div class="book-cover-author">${book.author}</div>
+        </div>
+      </div>
+      <div class="book-info">
+        <p class="book-year">${book.year}</p>
+        <h3 class="book-name">${book.title}</h3>
+        <p class="book-author">${book.author}${book.illustrator ? ' · 그림 ' + book.illustrator : ''}</p>
+        <p class="book-desc">${book.desc}</p>
+        ${book.shopUrl ? `<a href="${book.shopUrl}" target="_blank" rel="noopener noreferrer" class="btn-shop">교보문고에서 구매하기 →</a>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderAuthors() {
+  const grid = document.getElementById('authors-grid');
+  grid.innerHTML = AUTHORS.map(a => `
+    <div class="author-card">
+      <div class="author-avatar">${getInitial(a.name)}</div>
+      <h3 class="author-name">${a.name}</h3>
+      <p class="author-book">${a.book}</p>
+      <p class="author-bio">${a.bio}</p>
+    </div>
+  `).join('');
+}
+
+// ─── 관리자 패널 ───
+function toggleAdmin() {
+  const panel = document.getElementById('admin-panel');
+  panel.classList.toggle('open');
+}
+
+function addBook() {
+  const title = document.getElementById('new-title').value.trim();
+  const author = document.getElementById('new-author').value.trim();
+  const illustrator = document.getElementById('new-illustrator').value.trim();
+  const year = document.getElementById('new-year').value.trim();
+  const desc = document.getElementById('new-desc').value.trim();
+
+  const shopUrl = document.getElementById('new-shopUrl').value.trim();
+
+  if (!title || !author || !year || !desc) {
+    alert('제목, 저자, 출간연도, 소개 글은 필수입니다.');
+    return;
+  }
+
+  BOOKS.push({ title, author, illustrator, year, desc, shopUrl });
+  renderBooks();
+  toggleAdmin();
+
+  // 입력창 초기화
+  ['new-title','new-author','new-illustrator','new-year','new-desc','new-shopUrl']
+    .forEach(id => document.getElementById(id).value = '');
+
+  // 책소개 섹션으로 이동
+  setTimeout(() => document.getElementById('books').scrollIntoView({ behavior: 'smooth' }), 200);
+}
+
+// 패널 바깥 클릭 시 닫기
+document.getElementById('admin-panel').addEventListener('click', function(e) {
+  if (e.target === this) toggleAdmin();
+});
+
+// ─── 초기 렌더링 ───
+renderBooks();
+renderAuthors();
+</script>
+</body>
+</html>
